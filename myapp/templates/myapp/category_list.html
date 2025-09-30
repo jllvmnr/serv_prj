@@ -1,0 +1,29 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<h1 class="display-4 mb-4">📂 Категории книг</h1>
+
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ category.name }}</h5>
+                <p class="card-text">{{ category.description|default:"Описание категории скоро будет добавлено..."|truncatewords:20 }}</p>
+                <a href="{{ category.get_absolute_url }}" class="btn btn-primary">Смотреть книги</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <h3>Категории пока не добавлены</h3>
+            {% if user.is_authenticated %}
+            <p>Добавьте категории через админку Django.</p>
+            <a href="/admin/myapp/category/add/" class="btn btn-primary">Добавить категорию</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
