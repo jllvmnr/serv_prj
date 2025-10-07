@@ -18,7 +18,7 @@ urlpatterns = [
         "categories/<slug:slug>/", CategoryDetailView.as_view(), name="category_detail"
     ),
     path("search/", SearchView.as_view(), name="search"),
-    # Admin CRUD URLs
+    # Admin CRUD 
     path("admin/books/add/", BookCreateView.as_view(), name="book_create"),
     path("admin/books/<slug:slug>/edit/", BookUpdateView.as_view(), name="book_update"),
     path(
