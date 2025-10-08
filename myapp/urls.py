@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .views import *
 from django.contrib.sitemaps.views import sitemap
@@ -18,7 +20,7 @@ urlpatterns = [
         "categories/<slug:slug>/", CategoryDetailView.as_view(), name="category_detail"
     ),
     path("search/", SearchView.as_view(), name="search"),
-    # Admin CRUD 
+    # Admin CRUD
     path("admin/books/add/", BookCreateView.as_view(), name="book_create"),
     path("admin/books/<slug:slug>/edit/", BookUpdateView.as_view(), name="book_update"),
     path(
@@ -34,3 +36,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
